@@ -1,0 +1,33 @@
+#importing libraries 
+import numpy as np
+import pandas as pd
+#Ten coins are thrown simultaneously .Find the probability of getting atleast seven heads using binomial distribution
+#importing binom module from scipy library
+from scipy.stats import binom
+# n = no.of  times coins has been thrown 
+# p = probability of getting atleast 7 heads 
+n = 10
+p = 0.5
+# defining the list of r values
+r_values = list(range(7,n + 1))
+# obtaining the mean and variance 
+mean, var = binom.stats(n, p)
+print(mean,var)
+# list of pmf values pmf- probability mass fuction 
+dist = [binom.pmf(r, n, p) for r in r_values ] #for finding the probability of one variable 
+dist
+sum=0
+for i in dist:
+    sum+=i  #0.171875
+print(sum)
+from scipy.stats import binom
+import seaborn as sb
+
+binom.rvs(size=900,n=10,p=0.5)
+
+data_binom = binom.rvs(n=10,p=0.5,loc=0,size=900)
+ax = sb.distplot(data_binom,
+                  kde=True,
+                  color='orange',
+                  hist_kws={"linewidth": 25,'alpha':1})
+ax.set(xlabel='Binomial', ylabel='Frequency')
