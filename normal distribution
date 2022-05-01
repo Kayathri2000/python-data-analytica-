@@ -1,0 +1,58 @@
+#import libraries 
+import pandas as pd 
+import scipy.stats
+import seaborn as sns
+import statsmodels.stats 
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import norm
+# generate random numbers from N(0,1)                
+data_normal = norm.rvs(size=10000,loc=0,scale=1)
+ax = sns.distplot(data_normal,
+                  bins=100,
+                  kde=True,
+                  color='violet',
+                  hist_kws={"linewidth": 15,'alpha':1})
+ax.set(xlabel='Normal Distribution', ylabel='Frequency')
+#read csv file 
+mileage=pd.read_csv(r'C:\Users\K2\OneDrive\Desktop\DATA ANALYTICS 101\day_03\Mileage.csv')
+mil =mileage.copy()
+mil.head()
+mil.describe()    # mean = 17.547145    satndard deviation = 2.905042
+import seaborn as sns
+sns.distplot(mil['Mileage'],color='green')
+print(np.mean(mil['Mileage']))
+print(np.std(mil['Mileage']))
+import math
+def fx(x,mu,sigma):
+    return 1/(sigma*np.sqrt(2*np.pi))*np.exp(-np.power((x-mu)/sigma,2)/2) # formula for normal distribution 
+# check 
+mean =17.547144898489
+std =2.890480336679455
+x=np.arange (-10,30,0.0001)
+plt.plot(x,fx(x,mean,std))
+from scipy.integrate import quad  # integral of 15 to 20 
+def int2(x) :
+    return fx(x,mean,std)
+prob,eer =quad(int2,15,20)
+print(prob)
+#if x is the normal random variable with the mean 100 and variance 36
+#find i) p(x>112) ii) p(x<106) iii)p(94<x<106)
+#i)  p(x>112)
+from scipy.integrate import quad  
+def int2(x) :
+    return fx(x,100,6)
+prob1,eer =quad(int2,112,float('inf'))
+print(prob1)
+#ii) p(x<106)
+from scipy.integrate import quad  
+def int2(x) :
+    return fx(x,100,6)
+prob2,eer =quad(int2,float('-inf'),106)
+print(prob2)
+# iii)p(94<x<106)
+from scipy.integrate import quad  
+def int2(x) :
+    return fx(x,100,6)
+prob3,eer =quad(int2,94,106)
+print(prob3)
